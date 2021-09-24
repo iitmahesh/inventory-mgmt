@@ -1,3 +1,55 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="mainMenu" content-id="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          Main Menu
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div *ngFor="let menu of menuPages">
+        <ion-menu-toggle *ngIf="menu.url">
+          <ion-item [routerLink]="[menu.url]" routerLinkActive="active" lines="none">
+            <ion-icon [name]="menu.name" slot="start"></ion-icon>
+            <ion-label>{{menu.title}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item button *ngIf="menu.childrens?.length > 0" (click)="menu.open = !menu.open" lines="none" [class.active-parent]="menu.open" detail="false">
+          <ion-icon slot="start" [name]="menu.name"></ion-icon>
+          <ion-label>{{menu.title}}</ion-label>
+          <ion-icon slot="end" name="caret-forward" *ngIf="!menu.open"></ion-icon>
+          <ion-icon slot="end" name="caret-down" *ngIf="menu.open"></ion-icon>
+        </ion-item>
+        <ion-list *ngIf="menu.open" style="margin-bottom:0px">
+          <div *ngFor="let child of menu.childrens">
+            <ion-menu-toggle *ngIf="child.url">
+              <ion-item class="sub-item" [routerLink]="[child.url]" routerLinkActive="active" lines="none">
+                <ion-icon [name]="child.name" slot="start"></ion-icon>
+                <ion-label>{{child.title}}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-item button class="sub-item" *ngIf="child.childrens?.length > 0" (click)="child.open = !child.open" lines="none" [class.active-parent]="child.open" detail="false">
+              <ion-icon slot="start" [name]="child.name"></ion-icon>
+              <ion-label>{{child.title}}</ion-label>
+              <ion-icon slot="end" name="caret-forward" *ngIf="!child.open"></ion-icon>
+              <ion-icon slot="end" name="caret-down" *ngIf="child.open"></ion-icon>
+            </ion-item>
+            <ion-list *ngIf="child.open" style="margin-bottom:0px">
+              <div *ngFor="let kid of child.childrens;let i = index">
+                <ion-menu-toggle *ngIf="kid.url">
+                  <ion-item class="sub-sub-item" [routerLink]="[kid.url]" routerLinkActive="active" lines="none">
+                    <ion-icon [name]="kid.name" slot="start"></ion-icon>
+                    <ion-label>{{kid.title}}</ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </div>
+            </ion-list>
+          </div>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
+

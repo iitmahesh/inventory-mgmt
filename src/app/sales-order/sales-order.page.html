@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Sales Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<super-tabs>
+  <super-tabs-toolbar slot="top" color="primary">
+    <super-tab-button>
+      <ion-icon name="pricetags"></ion-icon>
+      <ion-label>Add Sales Order</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="file-tray-full-outline"></ion-icon>
+      <ion-label>Sales Order Details</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+
+  <super-tabs-container>
+    <super-tab>
+      <ion-content>
+       <ion-nav [root]="addOrderSales"></ion-nav>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <ion-nav [root]="salesOrderDetails"></ion-nav>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+
+</super-tabs>

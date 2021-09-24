@@ -1,0 +1,61 @@
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+    <ion-col size="12" size-sm="10" offset-sm="1">
+      <ion-card class="purchaseDetails" *ngFor="let purchaseData of dataToBeShown">
+        <ion-card-header color="medium">
+          <ion-card-title class="ion-text-center">
+            {{purchaseData.supplier}} Purchased on {{purchaseData.purchaseDate | date: 'dd/MM/yyyy'}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-label>Product Details</ion-label>
+              <ion-col size="12">
+                <ion-row *ngFor="let prod of purchaseData.productInfoArray;let i = index">
+                  <ion-col size="12" size-sm="3">
+                    <ion-label color="primary">Product Desc {{i+1}}: </ion-label> <ion-text>{{prod?.productDesc}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="2">
+                    <ion-label color="primary">Quantity : </ion-label> <ion-text>{{prod?.quantity}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="2">
+                    <ion-label color="primary">Rate/Qty : </ion-label> <ion-text>{{prod?.rate}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="2" *ngIf="prod?.sgst !== 0">
+                    <ion-label color="primary">SGST : </ion-label> <ion-text>{{prod?.sgst}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="2" *ngIf="prod?.cgst !== 0">
+                    <ion-label color="primary">CGST : </ion-label> <ion-text>{{prod?.cgst}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="2" *ngIf="prod?.igst !== 0">
+                    <ion-label color="primary">IGST : </ion-label> <ion-text>{{prod?.igst}}</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-label>General Info</ion-label>
+              <ion-col size="12">
+                <ion-row>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Invoice Number : </ion-label> <ion-text>{{purchaseData.invoiceNumber}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="3">
+                    <ion-label color="primary">Total Amount : </ion-label> <ion-text>{{purchaseData.totalAmount | indiancurrency}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="3">
+                    <ion-label color="primary">Payment : </ion-label> <ion-text>{{purchaseData.payment | indiancurrency}} </ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

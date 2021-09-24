@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "inventorymgmt-cdc64": {
+      "hosting": {
+        "app": [
+          "inventorymgmt-cdc64"
+        ]
+      }
+    }
+  }
+}

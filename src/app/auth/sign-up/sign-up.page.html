@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title class="title">
+      <ion-label class="ion-text-wrap">Create a New Account</ion-label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <div class="card-wrapper">
+    <form #form=ngForm (ngSubmit)="signUp(form)">
+      <ion-card class="card">
+        <ion-card-header>
+          <ion-card-title class="card-title">
+            <ion-label>Sign up to start your session</ion-label>
+          </ion-card-title>
+          <div class="ion-text-center">
+            <ion-text color="danger">{{error}}</ion-text>
+          </div>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="floating">Email</ion-label>
+                  <ion-input class="item" type="email" placeholder="xyz@example.com" ngModel name="email" email="true" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="floating">Password</ion-label>
+                  <ion-input class="item" type="password" ngModel name="password" required clearOnEdit="false"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="floating">Confirm Password</ion-label>
+                  <ion-input class="item" [type]="passwordType" ngModel name="confirmPassword" required clearOnEdit="false"></ion-input>
+                  <ion-icon slot="end" item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" mode="ios" type="submit">Sign Up</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
+</ion-content>

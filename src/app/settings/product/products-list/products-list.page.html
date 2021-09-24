@@ -1,0 +1,72 @@
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <ion-card-content>
+    <ion-row>
+      <ion-col size="12" size-sm="10" offset-sm="1">
+        <ion-card class="custListClass" *ngFor="let product of productsList">
+            <ion-card-header color="medium">
+              <ion-card-title class="ion-text-center">
+                {{product.productDesc}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-text-center">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Product Code : </ion-label> <ion-text>{{product.productCode}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4" *ngIf="product.productFromTo ==='customer'">
+                    <ion-label color="primary">To : </ion-label> <ion-text>{{product.productFromTo}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4" *ngIf="product.productFromTo ==='supplier'">
+                    <ion-label color="primary">From : </ion-label> <ion-text>{{product.productFromTo}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4"  *ngIf="product.productFromTo ==='customer'">
+                    <ion-label color="primary">Customer : </ion-label> <ion-text>{{product.productSupplier}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4"  *ngIf="product.productFromTo ==='supplier'">
+                    <ion-label color="primary">Supplier : </ion-label> <ion-text>{{product.productSupplier}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Quantity Type : </ion-label> <ion-text>{{product.qtyType  }}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Rate Per Qty : </ion-label> <ion-text>{{product.ratePerQty}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">SGST : </ion-label> <ion-text>{{product.sgst}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">CGST : </ion-label> <ion-text>{{product.cgst}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">IGST : </ion-label> <ion-text>{{product.igst}}</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <ion-footer>
+              <ion-row>
+                <ion-col class="ion-text-center">
+                  <ion-button color="warning" (click)="editThisProduct(product)">
+                    <ion-icon name="pencil"></ion-icon>
+                    <ion-label>Edit</ion-label>
+                  </ion-button>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                  <ion-button color="danger" (click)="deleteThisProduct(product)">
+                    <ion-icon name="close"></ion-icon>
+                    <ion-label>Delete</ion-label>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-footer>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-content>

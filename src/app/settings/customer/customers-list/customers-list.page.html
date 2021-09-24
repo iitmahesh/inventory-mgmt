@@ -1,0 +1,66 @@
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <ion-card-content>
+    <ion-row>
+      <ion-col size="12" size-sm="10" offset-sm="1">
+        <ion-card class="custListClass" *ngFor="let customer of customersList">
+            <ion-card-header color="medium">
+              <ion-card-title class="ion-text-center">
+                {{customer.customerName}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-text-center">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Customer Name : </ion-label> <ion-text>{{customer.customerName}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Address Line1 : </ion-label> <ion-text>{{customer.addressLine1}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Address Line2 : </ion-label> <ion-text>{{customer.addressLine2}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">City : </ion-label> <ion-text>{{customer.city}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">State : </ion-label> <ion-text>{{customer.state}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Zipcode : </ion-label> <ion-text>{{customer.zipCode}}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Phone : </ion-label> <ion-text>{{customer.phone}} </ion-text>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-label color="primary">Email : </ion-label> <ion-text>{{customer.email}} </ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <ion-footer>
+              <ion-row>
+                <ion-col class="ion-text-center">
+                  <ion-button color="warning" (click)="editThisCustomer(customer)">
+                    <ion-icon name="pencil"></ion-icon>
+                    <ion-label>Edit</ion-label>
+                  </ion-button>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                  <ion-button color="danger" (click)="deleteThisCustomer(customer)">
+                    <ion-icon name="close"></ion-icon>
+                    <ion-label>Delete</ion-label>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-footer>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-content>

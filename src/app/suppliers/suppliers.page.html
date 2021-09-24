@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Suppliers Summary</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+    <ion-col size="12" size-sm="10" offset-sm="1">
+      <ion-card *ngFor="let supplierData of dataToBeShown" class="suppliersSummary">
+        <ion-card-header color="medium">
+          <ion-card-title class="ion-text-center">
+          {{supplierData.suppliers}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Opening Balance : </ion-label> <ion-text>{{supplierData.openingBalance | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Purchase Amount : </ion-label> <ion-text>{{supplierData.purchaseAmount | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Amount Paid : </ion-label> <ion-text>{{supplierData.paymentAmount | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Balance Amount(To pay) : </ion-label> <ion-text>{{supplierData.closingBalance | indiancurrency}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

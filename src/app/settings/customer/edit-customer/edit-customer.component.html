@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title class="ion-text-center" class="titleClass">Edit Customer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="danger"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="primary">
+  <form #form=ngForm (ngSubmit)="updateCustomer(form)">
+    <ion-row>
+      <ion-col size="12" size-sm="10" offset-sm="1">
+          <ion-card-header>
+            <div class="ion-text-center">
+              <ion-text color="danger" *ngIf= "form.touched && form.invalid">
+                {{error}}
+              </ion-text>
+            </div>
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Customer Name/Company Name</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="custName" name="customerName" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Address Line 1</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="addLine1" name="addressLine1" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Address Line 2</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="addLine2" name="addressLine2" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">State</ion-label>
+                  <ionic-selectable
+                    [(ngModel)]="stateSelected"
+                    name="state"
+                    [items]="stateList"
+                    itemValueField="name"
+                    itemTextField="name"
+                    [canSearch]="true"
+                    (onChange)="selectCities($event)"
+                    required>
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">City</ion-label>
+                  <ionic-selectable
+                    [(ngModel)]="citySelected"
+                    name="city"
+                    [items]="cityList"
+                    itemValueField="name"
+                    itemTextField="name"
+                    [canSearch]="true"
+                    required
+                  >
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Zip Code</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="zip" name="zipCode" pattern="\d{6}$" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Country</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="country" name="country" readonly required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Phone Number</ion-label>
+                  <ion-input class="item" type="tel" [(ngModel)]="phoneNum" name="phone" pattern="\d{10}$" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Email Id</ion-label>
+                  <ion-input class="item" type="email" [(ngModel)]="emailId" name="email" 
+                  pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">GST Number</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="gstNum" name="gstNumber" (keyup)="validateForm(form)" required></ion-input>
+                </ion-item>
+              </ion-col>
+              
+              <ion-col size="12" class="ion-text-center">
+                <ion-button mode="ios" type="submit" [disabled]="!form.valid" color="medium">Update Customer Details</ion-button>
+                <ion-button mode="ios" type="button" (click)="resetFormData(form)" color="medium">Reset</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

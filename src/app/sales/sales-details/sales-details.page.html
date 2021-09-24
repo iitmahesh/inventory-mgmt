@@ -1,0 +1,43 @@
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+    <ion-col size="12" size-sm="10" offset-sm="1">
+      <ion-card *ngFor="let salesData of dataToBeShown" class="salesDetails">
+        <ion-card-header color="medium">
+          <ion-card-title class="ion-text-center">
+            {{salesData.productDesc}} Sold on {{salesData.salesDate | date: 'dd/MM/yyyy'}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Customer : </ion-label> <ion-text>{{salesData.customer}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Product Code : </ion-label> <ion-text>{{salesData.productCode}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Invoice Number : </ion-label> <ion-text>{{salesData.invoiceNumber}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Quantity : </ion-label> <ion-text>{{salesData.qtyWithQtyType}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Rate : </ion-label> <ion-text>{{salesData.rate | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Total Amount : </ion-label> <ion-text>{{salesData.totalAmount | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Payment : </ion-label> <ion-text>{{salesData.payment | indiancurrency}} </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

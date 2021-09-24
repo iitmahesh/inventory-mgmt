@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Customers Summary</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <ion-row>
+    <ion-col size="12" size-sm="4" offset-sm="4">
+      <ion-searchbar search-outline="ios" inputmode="text" color="light" (keyup)="updateFilter($event)" (ionClear)="clearInput($event)" ></ion-searchbar>
+    </ion-col>
+    <ion-col size="12" size-sm="10" offset-sm="1">
+      <ion-card *ngFor="let customerData of dataToBeShown" class="customerSummary">
+        <ion-card-header color="medium">
+          <ion-card-title class="ion-text-center">
+           {{customerData.customer}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Opening Balance : </ion-label> <ion-text>{{customerData.openingBalance | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Sales Amount : </ion-label> <ion-text>{{customerData.salesAmount | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Amount Received : </ion-label> <ion-text>{{customerData.amountReceived | indiancurrency}}</ion-text>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <ion-label color="primary">Amount Pending(To Receive) : </ion-label> <ion-text>{{customerData.closingBalance | indiancurrency}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

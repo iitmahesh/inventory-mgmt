@@ -24,3 +24,28 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.loading-class{
+    --background: white;
+    color: #3880ff;
+    --height: 100px;
+    --spinner-color: var(--ion-color-primary)
+  }
+
+ion-backdrop{
+    background-color: aqua;
+}
+
+.item-native {
+  background-color: #3880ff ;
+  border-radius: 25px;
+}
+
+@media (min-width: 680px) {
+  .my-custom-modal-css .modal-wrapper {
+    height: 90%;
+    width: 90%;
+    position: absolute; 
+    display: block;  
+  }
+}

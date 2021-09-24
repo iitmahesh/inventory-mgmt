@@ -8,15 +8,31 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SuperTabsModule } from '@ionic-super-tabs/angular';
+import { IonicSelectableModule } from 'ionic-selectable';
+import { HttpClientModule } from '@angular/common/http';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule,
+            IonicModule.forRoot(),
+            AppRoutingModule,
+            AngularFireModule.initializeApp(environment.firebaseConfig),
+            SuperTabsModule.forRoot(),
+            AngularFirestoreModule,
+            IonicSelectableModule,
+            HttpClientModule
+          ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    FileOpener
   ],
   bootstrap: [AppComponent]
 })

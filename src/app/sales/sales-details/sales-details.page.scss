@@ -1,0 +1,17 @@
+ion-label {
+    font-size:1.2rem !important;
+    font-weight: 500;
+}
+
+ion-text{
+    font-size:1rem !important; ;
+    font-weight: 400;
+}
+
+.salesDetails{
+    border-radius: 25px;
+}
+ion-searchbar {
+    --border-radius: 25px;
+    --background: var(--ion-color-primary);
+}

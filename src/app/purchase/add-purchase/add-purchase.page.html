@@ -1,0 +1,128 @@
+<ion-content color="primary">
+  <form [formGroup]="addPurchaseForm" (ngSubmit)="submitPurchase(addPurchaseForm)">
+    <ion-card color="secondary" class="addPurchase">
+      <ion-card-header>
+        <ion-card-title class="card-title">
+          <ion-label>Purchase Activity</ion-label>
+        </ion-card-title>
+        <div class="ion-text-center">
+          <ion-text color="danger">{{error}}</ion-text>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Purchase Date</ion-label>
+                <ion-datetime class="dateTime" mode="ios" formControlName="purchaseDate" displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" min="1994-03-14" max="2100-12-09"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Suppliers</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]="supplier" formControlName="supplier" (ionChange)="checkProductForSupplier(supplier)">
+                  <ion-select-option *ngFor="let supplier of suppliers" [value]="supplier" required>{{supplier}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Invoice Number</ion-label>
+                <ion-input class="item" type="text" formControlName="invoiceNumber" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm="4">
+              <ion-button mode="ios" (click)="addProductInfo()"><ion-icon name="add-circle"></ion-icon>Add Product</ion-button>
+            </ion-col>
+            <ion-card color="primary" formArrayName="productInfoArray" *ngFor="let productInfo of productInfoArrayObj;let i = index " >
+              <ion-card-header><ion-card-title>Product No. {{i+1}}</ion-card-title></ion-card-header>
+              <div [formGroupName]="i">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">Product Description</ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="prodDescSelected[i]" formControlName="productDesc" (ionChange)="checkProductForProductDesc(addPurchaseForm, i)">
+                          <ion-select-option *ngFor="let prodDesc of productDescriptionList" [value]="prodDesc" required>{{prodDesc}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">Product Code</ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="prodCodeSelected[i]" formControlName="productCode">
+                          <ion-select-option *ngFor="let productCd of productCodeList[i]" [value]="productCd" required>{{productCd}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">Quantity</ion-label>
+                        <ion-input class="item" type="text" [(ngModel)]="noOfQty[i]" formControlName="quantity" (ionBlur)="calculateTotalAmount(addPurchaseForm)" required></ion-input>
+                        <ion-text slot="end" item-end class="qtyType">{{quantityType[i]}}</ion-text>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">Rate per quantity in Rs</ion-label>
+                        <ion-input class="item" type="text" [(ngModel)]="ratePerQuantity[i]" formControlName="rate"  readonly required></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col *ngIf="!isIgstReq" size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">CGST in %</ion-label>
+                        <ion-input class="item" type="number" [(ngModel)]="cgst[i]" formControlName="cgst" (ionBlur)="calculateTotalAmount(addPurchaseForm)"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col *ngIf="!isIgstReq" size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">SGST in %</ion-label>
+                        <ion-input class="item" type="number" [(ngModel)]="sgst[i]" formControlName="sgst" (ionBlur)="calculateTotalAmount(addPurchaseForm)"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col *ngIf="isIgstReq" size="12" size-sm=4>
+                      <ion-item>
+                        <ion-label position="floating">IGST in %</ion-label>
+                        <ion-input class="item" type="number" [(ngModel)]="igst[i]" formControlName="igst" (ionBlur)="calculateTotalAmount(addPurchaseForm)"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col class="notForMobile" *ngIf="isIgstReq" size="12" size-sm=4>
+                      <ion-button fill="clear" expand="full" disabled></ion-button>
+                    </ion-col>
+                    <ion-col size="12" size-sm="4">
+                      <ion-button color="danger" mode="ios" expand="block" class="delete" (click)="deleteProductInfo(addPurchaseForm,i)"><ion-icon name="trash"></ion-icon>Delete Product</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </ion-card> 
+            
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Discount in %</ion-label>
+                <ion-input class="item" type="number" formControlName="discount" (ionBlur)="calculateTotalAmount(addPurchaseForm)"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Total Amount in Rs</ion-label>
+                <ion-input class="item" type="text" [(ngModel)]="totalAmount" formControlName="totalAmount" readonly required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm="4">
+              <ion-item>
+                <ion-label position="floating">Payment in Rs</ion-label>
+                <ion-input class="item" type="text"  [(ngModel)]="payment" formControlName="payment" (change)="formatPaymentToCurrency(addPurchaseForm)" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" class="ion-text-center">
+              <ion-button mode="ios" type="submit" [disabled]="!addPurchaseForm.valid" color="medium">Submit Purchase Details</ion-button>
+              <ion-button mode="ios" type="button" (click)="resetFormData(addPurchaseForm)" color="medium">Reset</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

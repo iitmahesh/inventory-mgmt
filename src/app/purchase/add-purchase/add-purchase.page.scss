@@ -1,0 +1,34 @@
+.card-title{
+    text-align: center;
+}
+.qtyType{
+    font-size:1.2rem !important;
+    position: relative !important;
+    top: 20px !important;
+    left: 5px;
+    margin: 0 auto !important;
+ }
+ ion-item{
+     border-radius: 20px;
+ }
+
+ .addPurchase{
+    border-radius: 25px;
+ }
+
+ @media (min-width: 680px) {
+    .addPurchase{
+        border-radius: 25px;
+        top: 5px;
+     }
+ }
+
+ @media (max-width: 680px) {
+    .notForMobile{
+        visibility: collapse;
+    }
+}
+
+ .delete{
+    height: 3.8em;;
+}

@@ -1,0 +1,105 @@
+<ion-content color="primary">
+  <form #form=ngForm (ngSubmit)="submitSales(form)">
+    <ion-card color="secondary" class="sales">
+      <ion-card-header>
+        <ion-card-title class="card-title">
+          <ion-label>Sales Activity</ion-label>
+        </ion-card-title>
+        <div class="ion-text-center">
+          <ion-text color="danger">{{error}}</ion-text>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-sm="4">
+              <ion-item>
+                <ion-label position="floating">Sales Date</ion-label>
+                <ion-datetime class="dateTime" mode="ios" [(ngModel)]="todaysDate" name="salesDate" displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" min="1994-03-14" max="2100-12-09"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm="4">
+              <ion-item>
+                <ion-label position="floating">Customer</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]="customer" name="customer" (ionChange)="checkProductForCustomer(customer)">
+                  <ion-select-option *ngFor="let customer of customers" [value]="customer" required>{{customer}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Invoice Number</ion-label>
+                <ion-input class="item" type="text" ngModel name="invoiceNumber" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Product Description</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]="productDesc" name="productDesc" (ionChange)="checkProductForProductDesc(productDesc, form)">
+                  <ion-select-option *ngFor="let productDesc of productDescriptions" [value]="productDesc" required>{{productDesc}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Product Code</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]="productCode" name="productCode">
+                  <ion-select-option *ngFor="let productCd of productCodes" [value]="productCd" required>{{productCd}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Quantity</ion-label>
+                <ion-input class="item" type="text" ngModel name="quantity" (ionBlur)="calculateAmount(form)" required></ion-input>
+                <ion-text slot="end" item-end class="qtyType">{{quantityType}}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Rate per quantity in Rs</ion-label>
+                <ion-input class="item" type="text" [(ngModel)]="rate" name="rate" (ionChange)="formatAmountToCurrency(rate, form)" readonly required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Discount in %</ion-label>
+                <ion-input class="item" type="number" ngModel name="discount" (ionBlur)="calculateAmount(form)"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">CGST in %</ion-label>
+                <ion-input class="item" type="number" ngModel name="cgst" (ionBlur)="calculateAmount(form)" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">SGST in %</ion-label>
+                <ion-input class="item" type="number" ngModel name="sgst" (ionBlur)="calculateAmount(form)" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm=4>
+              <ion-item>
+                <ion-label position="floating">Total Amount in Rs</ion-label>
+                <ion-input class="item" type="text" [(ngModel)]="totalAmount" name="totalAmount" readonly required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" size-sm="4">
+              <ion-item>
+                <ion-label position="floating">Payment in Rs</ion-label>
+                <ion-input class="item" type="text" [(ngModel)]="payment" name="payment" (change)="formatPaymentToCurrency(payment, form)" required></ion-input>
+              </ion-item>
+            </ion-col>
+            
+            <ion-col size="12" class="ion-text-center">
+              <ion-button mode="ios" type="submit" [disabled]="!form.valid" color="medium">Submit Sales Details</ion-button>
+              <ion-button mode="ios" type="button" (click)="resetFormData(form)" color="medium">Reset</ion-button>
+              <ion-button mode="ios" type="button" (click)="generatePdf()" color="medium">Generate PDF</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

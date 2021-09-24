@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title class="ion-text-center" class="titleClass">Edit Product</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="danger"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="primary">
+  <form #form=ngForm (ngSubmit)="updateProduct(form)">
+    <ion-row>
+      <ion-col size="12" size-sm="10" offset-sm="1">
+          <ion-card-header>
+            <div class="ion-text-center">
+              <ion-text color="danger" *ngIf= "form.touched && form.invalid">
+                {{error}}
+              </ion-text>
+            </div>
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Product Description</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="prodDesc" name="productDesc" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Product Code</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="prodCode" name="productCode" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Quantity Type</ion-label>
+                  <ion-select placeholder="Select One" [(ngModel)]="quantityType" name="qtyType">
+                    <ion-select-option value="Number">Number</ion-select-option>
+                    <ion-select-option value="Kgs">Kilograms</ion-select-option>
+                    <ion-select-option value="Tons">Tons</ion-select-option>
+                    <ion-select-option value="Mts">Meters</ion-select-option>
+                    <ion-select-option value="SqFt">Square Feet</ion-select-option>
+                    <ion-select-option value="lts">Liters</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Product From/To</ion-label>
+                  <ion-select placeholder="Select One" [(ngModel)]="prodFromTo" name="productFromTo">
+                    <ion-select-option value="supplier">Supplier</ion-select-option>
+                    <ion-select-option value="customer">Customer</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col *ngIf="form.value.productFromTo == 'supplier'" size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Supplier Name</ion-label>
+                  <ion-select placeholder="Select One" [(ngModel)]="prodSupp" name="productSupplier">
+                    <ion-select-option *ngFor="let supplier of suppliers" required>{{supplier}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col *ngIf="form.value.productFromTo == 'customer'" size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Customer Name</ion-label>
+                  <ion-select placeholder="Select One" [(ngModel)]="prodSupp" name="productSupplier">
+                    <ion-select-option *ngFor="let customer of customers" required>{{customer}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">Rate per quantity in Rs</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="rtPerQty" name="ratePerQty" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">SGST</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="sgstValue" name="sgst" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">CGST</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="cgstValue" name="cgst" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm=4>
+                <ion-item>
+                  <ion-label position="floating">IGST</ion-label>
+                  <ion-input class="item" type="text" [(ngModel)]="igstValue" name="igst" required></ion-input>
+                </ion-item>
+              </ion-col>
+              
+              <ion-col size="12" class="ion-text-center">
+                <ion-button mode="ios" type="submit" [disabled]="!form.valid" color="medium">Update Product Details</ion-button>
+                <ion-button mode="ios" type="button" (click)="resetFormData(form)" color="medium">Reset</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
